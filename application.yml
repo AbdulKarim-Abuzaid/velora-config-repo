@@ -1,0 +1,25 @@
+
+## Configuration Files
+
+### application.yml
+
+Contains shared configuration used by all Velora services.
+
+Examples:
+
+- Eureka server connection
+- Common Spring configuration
+- Actuator endpoints
+- Shared logging configuration
+
+
+### discovery-service.yml
+
+Configuration for the Eureka Discovery Server.
+
+Responsibilities:
+
+- Service registration
+- Service discovery
+
+Default port:
