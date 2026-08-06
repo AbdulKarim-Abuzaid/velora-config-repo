@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: spring-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: room-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/rooms/**
+            - Path=/api/rooms/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 8080
+
+# Simple properties for demo: token or other shared secrets could be added here
+gateway:
+  security:
+    header-name: X-Authenticated-User

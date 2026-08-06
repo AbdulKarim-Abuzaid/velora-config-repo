@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  eureka-service:
+    image: velora/eureka-service:latest
+    container_name: eureka-service
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+
+  room-service:
+    image: velora/room-service:latest
+    container_name: room-service
+    depends_on:
+      - eureka-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka/
+    ports:
+      - "8081:8081"
+
+  gateway-service:
+    image: velora/gateway-service:latest
+    container_name: gateway-service
+    depends_on:
+      - eureka-service
+    ports:
+      - "8080:8080"
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-service:8761/eureka/
+
+# NOTE: These images assume you build and push Docker images named velora/<service>-service:latest
+# Alternatively change each service to use 'build: ./<service-folder>' if you have local projects
